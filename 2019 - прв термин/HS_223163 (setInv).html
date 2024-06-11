@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2019 VTOR KOLOKVIUM</title>
+</head>
+<body>
+    <img src="s1.png"/>
+    <img src="s2.png"/>
+    <img src="s3.png"/>
+    <img src="s4.png"/>
+    <img src="s5.png"/>
+    <img src="s6.png"/>
+</body>
+<script>
+    window.onload=resize();
+
+    function resize(){
+        let im=document.getElementsByTagName("img");
+        for(let i=0; i<im.length; i++){
+            im[i].style.width=150+"px";
+            im[i].style.position="absolute"
+            im[i].style.top='-150px'
+            im[i].style.left=Math.random()*1500+"px";
+            setInterval(fall, (Math.random()+0.5) *5, im[i])
+        }
+    }
+    function fall(elem){
+        let value=elem.style.top.split("px")[0];
+        elem.style.top=parseInt(value)+1+"px";
+        if(value>1000){
+            elem.style.top="-200px";
+        }
+    }
+</script>
+</html>

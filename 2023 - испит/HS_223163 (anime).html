@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OriginalVersion</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+<input type="button" value="<" onclick="move('<')">
+<input type="button" value=">" onclick="move('>')">
+</body>
+<script>
+  data = '[{"background-color":"red", "width":"100px", "height":"100px"}, {"background-color":"green", "width":"50px", "height":"100px"}, {"background-color":"blue", "width":"100px", "height":"50px"}]';
+  data = JSON.parse(data);
+  let i=0;
+
+  window.onload=createNewDiv();
+
+  function move(str) {
+    if (str === '>') {
+      let elem = document.getElementById("myDiv");
+      anime({
+        targets: elem,
+        duration: 2000,
+        translateX: document.body.clientWidth,
+        easing: 'linear',
+        complete: function (){
+          let oldDiv = document.getElementById('myDiv');
+          if (oldDiv) {
+            oldDiv.parentNode.removeChild(oldDiv);
+          }
+          createNewDiv();
+        }
+      })
+      i++;
+    }
+    else if (str === '<') {
+      i--;
+      if (i > data.length - 1) {
+        i = 0;
+      }
+      if(i < 0){
+        i=data.length-1;
+      }
+      backwards();
+    }
+
+    if (i > data.length - 1) {
+      i = 0;
+    }
+    if(i < 0){
+      i=data.length-1;
+    }
+
+  }
+
+  function backwards(){
+    let oldDiv = document.getElementById('myDiv');
+    if (oldDiv) {
+      oldDiv.parentNode.removeChild(oldDiv);
+    }
+
+    let elem = document.createElement("div");
+    elem.id = "myDiv"
+    elem.style['background-color'] = data[i]['background-color'];
+    elem.style.width = data[i].width;
+    elem.style.height = data[i].height;
+    elem.style.position = "absolute"
+    elem.style.left = 1500+"px";
+
+    document.body.appendChild(elem);
+
+    anime({
+      targets: elem,
+      duration: 2000,
+      left: 10,
+      easing: 'linear',
+      complete: function (){
+        let oldDiv = document.getElementById('myDiv');
+        if (oldDiv) {
+          oldDiv.parentNode.removeChild(oldDiv);
+        }
+        createNewDiv();
+      }
+    })
+  }
+
+  function createNewDiv(){
+    let elem = document.createElement("div");
+    elem.id = "myDiv"
+    elem.style['background-color'] = data[i]['background-color'];
+    elem.style.width = data[i].width;
+    elem.style.height = data[i].height;
+    elem.style.position = "absolute"
+    elem.style.left = 10;
+
+    document.body.appendChild(elem);
+  }
+
+</script>
+</html>

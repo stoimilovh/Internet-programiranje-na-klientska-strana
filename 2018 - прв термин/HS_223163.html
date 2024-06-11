@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2018 Vtor Kolokvium</title>
+</head>
+<body>
+<div>
+    Red:<input id="red" type="number" min="1" max="255" value="0"></input> (0-255) <br />
+    Green:<input id="green" type="number" min="1" max="255" value="0"></input> (0-255) <br />
+    Blue:<input id="blue" type="number" min="1" max="255" value="0"></input> (0-255) <br />
+    <br />
+    <form>
+          <input id="start" type="radio" name="where" value="male" checked> Start<br>
+          <input id="end" type="radio" name="where" value="female"> End<br>
+    </form>
+    <br />
+    Text:<input id="text" type="text" width="500px"></input><br /><br />
+    <input type="button" value="Add" onclick="addText()"></input>
+    <input type="button" value="Delete" onclick="removeText()"></input>
+    <p id="main"></p>
+</div>
+</body>
+<script>
+    function addText(){
+        let red=document.getElementById("red").value;
+        let green=document.getElementById("green").value;
+        let blue=document.getElementById("blue").value;
+
+        let start=document.getElementById("start").checked;
+        let end=document.getElementById("end").checked;
+
+        let text=document.getElementById("text").value;
+
+        let first=document.getElementById("main");
+        let add=document.getElementById("tekst");
+        let t=document.createElement("p");
+        t.innerText=text;
+        var color = "#"+componentToHex(parseInt(red))+componentToHex(parseInt(green))+componentToHex(parseInt(blue));
+        t.style.color=color;
+        t.setAttribute("id", "tekst");
+
+        if(start){
+            if(first.hasChildNodes()){
+                first.insertBefore(t, first.firstChild);
+            }
+            else {
+                first.appendChild(t);
+            }
+        }
+        else {
+            first.appendChild(t);
+        }
+    }
+
+    function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function removeText(){
+        let start=document.getElementById("start").checked;
+        let end=document.getElementById("end").checked;
+        if(start){
+            let first=document.getElementById("main");
+            first.removeChild(first.childNodes[0]);
+        }
+        else {
+            let first=document.getElementById("main");
+            first.removeChild(first.childNodes[first.childNodes.length-1]);
+        }
+    }
+</script>
+</html>

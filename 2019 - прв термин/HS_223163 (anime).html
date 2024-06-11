@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2019 VTOR KOLOKVIUM</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+    <img src="s1.png"/>
+    <img src="s2.png"/>
+    <img src="s3.png"/>
+    <img src="s4.png"/>
+    <img src="s5.png"/>
+    <img src="s6.png"/>
+</body>
+<script>
+    window.onload=resize();
+
+    function resize(){
+        let im=document.getElementsByTagName("img");
+        for(let i=0; i<im.length; i++){
+            im[i].style.width=150+"px";
+            im[i].style.position="absolute"
+            im[i].style.top='-150px'
+            im[i].style.left=Math.random()*1500+"px";
+        }
+        fall(im);
+    }
+    function fall(im){
+        anime({
+            targets: im,
+            top: 700,
+            duration: 9000,
+            easing: 'linear',
+            complete: function (){
+                resize();
+            }
+        })
+    }
+</script>
+</html>

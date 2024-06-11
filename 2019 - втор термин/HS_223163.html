@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2023 Vtor Kolokvium</title>
+</head>
+<body>
+    <p>Colors</p><input id="colors"></input>
+    <p>Delimiter</p><input id="delimiter"></input>
+    <br/><br/>
+    <input type="button" value="Draw" onclick="draw()"></input>
+    <div id="ploter"></div>
+</body>
+<script>
+    let s;
+    let del
+    function draw(){
+        let string=document.getElementById("colors").value;
+        del=document.getElementById("delimiter").value;
+        s=string.split(del);
+        console.log(s);
+        for(let i=0; i<s.length; i++){
+            let div=document.createElement("div");
+            div.style.height="100px";
+            div.style.width="100px";
+            div.style.backgroundColor=s[i];
+            div.style.display="inline-block";
+            div.setAttribute('onclick', 'dell(this)');
+            let ploter=document.getElementById("ploter");
+            ploter.append(div);
+        }
+    }
+
+    function dell(element){
+        let child=element.parentNode.children;
+        element.parentNode.removeChild(element);
+        let ret="";
+        for(let i=0; i<child.length-1; i++){
+            ret+=child[i].style.backgroundColor+del
+        }
+        if(child.length-1>=0){
+            ret+=child[child.length-1].style.backgroundColor;
+        }
+        let change=document.getElementById("colors");
+        change.value=ret;
+    }
+</script>
+</html>
